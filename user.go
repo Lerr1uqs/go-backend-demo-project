@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/google/uuid"
@@ -42,7 +43,10 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 	// 	return
 	// }
 
-	InsertUser(db, user)
+	if err := InsertUser(user); err != nil {
+		log.Fatalf("%v", err)
+	}
+
 	w.WriteHeader(http.StatusOK)
 }
 

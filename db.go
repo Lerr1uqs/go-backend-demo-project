@@ -53,10 +53,17 @@ func CreateDB() *sql.DB {
 }
 
 // 插入用户到数据库
-func InsertUser(db *sql.DB, user User) error {
+func InsertUser(user User) error {
 	fmt.Println("[D] Inserting user into database")
+
 	// 插入用户数据
-	_, err := db.Exec(
+	db, err := sql.Open("sqlite3", "mydb.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	_, err = db.Exec(
 		"INSERT INTO users (userid, username, password) VALUES (?, ?, ?)",
 		user.UserId,
 		user.Username,
