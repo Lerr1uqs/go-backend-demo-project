@@ -12,7 +12,7 @@ func main() {
 	// http.HandleFunc("/", handler)
 	fmt.Println("Server started on http://localhost:8080")
 
-	CreateDB()
+	db = CreateDB()
 
 	router := mux.NewRouter()
 	router.HandleFunc("/", handler).Methods("GET")
